@@ -1,5 +1,5 @@
 package com.wanted.onboarding.member.domain;
-import com.wanted.onboarding.core.BaseEntity;
+import com.wanted.onboarding.support.BaseEntity;
 import com.wanted.onboarding.member.domain.type.MemberStatus;
 import lombok.AccessLevel;
 import lombok.Getter;

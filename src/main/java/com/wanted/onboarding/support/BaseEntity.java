@@ -1,4 +1,4 @@
-package com.wanted.onboarding.core;
+package com.wanted.onboarding.support;
 
 
 import com.fasterxml.jackson.databind.ser.std.StdArraySerializers.IntArraySerializer;
