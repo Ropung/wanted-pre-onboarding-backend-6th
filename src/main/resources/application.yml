@@ -2,38 +2,20 @@ server:
   port: 8080
 
 spring:
-  config:
-    import:
-      - classpath:/app/jwt/jwt.yml
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    # ${????}, ${????:???}
-    url: ${db.url:jdbc:mysql://localhost:3307/wanted?allowPublicKeyRetrieval=true}
-    username: ${db.username:root}
-    password: ${db.password:root}
-    hikari:
-      connectionTimeout: 10000
-      idleTimeout: 600000
-      maximum-pool-size: 300
-      minimum-idle: 5
-      maxLifetime: 10000
-      leak-detection-threshold: 2000
+    url: jdbc:mysql://localhost:3307/wanted
+    username: root
+    password: root
 
   jpa:
     properties:
       hibernate:
-        format-sql: false
-        dialect: org.hibernate.dialect.MySQLDialect
+        format-sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
     hibernate:
-      ddl-auto: none # `validation` or `none`
-
+      ddl-auto: update # `validation` or `none`
+    # ddl auto가 업데이트로 실행됬을때 오타가 있을때 자동으로 바뀌는 사이드 이펙트가 발생해서 과제 제출때 validation인 상태로 제출
   flyway:
     enabled: true
-    baseline-on-migrate: true
-    locations: classpath:/db/migration # ???
-
-  servlet:
-    multipart:
-      max-file-size: 50MB
-      max-request-size: 50MB
