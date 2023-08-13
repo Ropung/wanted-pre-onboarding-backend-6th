@@ -33,10 +33,10 @@ public class AuthApi {
         return memberRegisterUsecase.signup(dto);
     }
 
-//    @PostMapping("/login")
-//    public MemberLoginResponseDto login(
-//            @RequestBody @Valid MemberLoginRequestDto dto
-//    ){
-//        return memberRegisterUsecase.login(dto);
-//    }
+    @PostMapping("/login")
+    public MemberLoginResponseDto login(
+            @RequestBody @Valid MemberLoginRequestDto dto
+    ){
+        return memberRegisterUsecase.login(dto);
+    }
 }

@@ -10,6 +10,7 @@ public enum AuthenticationErrorCode implements ErrorCode {
     FORBIDDEN("올바르지 않은 권한입니다.", HttpStatus.FORBIDDEN),
     INVALID_TOKENS("올바르지 않은 인증 정보입니다.", HttpStatus.BAD_REQUEST),
     DEPRECATED("중복된 이메일 입니다.", HttpStatus.BAD_REQUEST),
+    SIGN_FAIL("아이디 혹은 비밀번호가 일치하지 않습니다.",HttpStatus.BAD_REQUEST),
     DEFAULT("서버 문제로 인증을 수행하지 못했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 
 
