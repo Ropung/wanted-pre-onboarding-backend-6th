@@ -2,10 +2,8 @@ package com.wanted.onboarding.board.api;
 
 import com.wanted.onboarding.board.api.dto.BoardQueryDto.BoardFindAllResponseDto;
 import com.wanted.onboarding.board.api.dto.BoardQueryDto.BoardFindByIdResponseDto;
-import com.wanted.onboarding.board.domain.Board;
 import com.wanted.onboarding.board.service.BoardQueryUsecase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +19,7 @@ import java.util.List;
 @RequestMapping("/api/board")
 public class BoardQueryApi {
 
-    private BoardQueryUsecase boardQueryUsecase;
+    private final BoardQueryUsecase boardQueryUsecase;
 
     @GetMapping("/list")
     public BoardFindAllResponseDto boardFindAll(
@@ -36,13 +34,8 @@ public class BoardQueryApi {
 
     @GetMapping("/{id}")
     public BoardFindByIdResponseDto boardFindById(
-            @PathVariable String boardId,
-            @PageableDefault(
-                    size=5,
-                    sort="id",
-                    direction = Sort.Direction.DESC
-            ) Pageable pageable
+            @PathVariable Long id
     ){
-        return boardQueryUsecase.findById(pageable, boardId);
+        return boardQueryUsecase.findById(id);
     }
 }
