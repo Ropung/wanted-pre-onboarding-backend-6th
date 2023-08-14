@@ -2,9 +2,7 @@ env:
   DB_PASSWORD: root
 
 name: build-test
-on:
-  push:
-    branches: [develop]
+on: pull_request
 
 jobs:
   build-test:
