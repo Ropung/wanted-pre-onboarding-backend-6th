@@ -65,8 +65,20 @@ compileTestJava {
 	options.compilerArgs += ['--enable-preview', '-Amapstruct.defaultComponentModel=spring']
 }
 
-
-
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.named("bootJar") {
+	enabled = true
+	archiveFileName.set("onboarding.jar")
+}
+
+tasks.register('zip', Zip.class) {
+	dependsOn("bootJar")
+	archiveFileName.set("onboarding.zip")
+
+	from("build/libs/onboarding.jar") {into("")}
+	from(".platform") {into(".platform")}
+	from("procfiles/Procfile") {into("")}
 }
