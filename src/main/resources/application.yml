@@ -2,14 +2,11 @@ server:
   port: 8080
 
 spring:
-  config:
-    import:
-      - classpath:/app/jwt/jwt.yml
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/wanted
-    username: root
-    password: root
+    url: ${db.url:jdbc:mysql://localhost:3306/test}
+    username: ${db.username:1234}
+    password: ${db.password:1234}
 
   jpa:
     properties:
@@ -18,7 +15,11 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
     hibernate:
-      ddl-auto: update # `validation` or `none`
-    # ddl auto가 업데이트로 실행됬을때 오타가 있을때 자동으로 바뀌는 사이드 이펙트가 발생해서 과제 제출때 validation인 상태로 제출
+      ddl-auto: validate
   flyway:
     enabled: true
+
+app:
+  jwt:
+    secret: ${secret:1234}
+    expired-in:  ${expired:1000} # [ms]
