@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface BoardCommandRepository extends JpaRepository<Board,Long> {
 
+    boolean existsBookByTitle(String title);
 }
