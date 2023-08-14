@@ -3,6 +3,7 @@
     member_id       bigint              not null,
     content         varchar(255),
     title           varchar(255),
+    name           varchar(255),
     created_at      datetime(6),
     updated_at      datetime(6),
     primary key (id)
