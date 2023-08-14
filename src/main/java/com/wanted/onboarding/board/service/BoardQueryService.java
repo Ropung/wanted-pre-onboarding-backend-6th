@@ -20,11 +20,11 @@ public class BoardQueryService implements BoardQueryUsecase {
 
     private final BoardQueryRepository boardQueryRepository;
 
-
     @Override
     public BoardFindAllResponseDto findAll(Pageable pageable) {
 
         pageable = pageable.previousOrFirst();
+
 
         Page<Board> boardPage = boardQueryRepository.findAll(pageable);
         List<BoardResponseDto> boardList = boardPage.stream()
@@ -32,7 +32,8 @@ public class BoardQueryService implements BoardQueryUsecase {
                         .id(e.getId())
                         .title(e.getTitle())
                         .content(e.getContent())
-                        .name(e.getMember().getName())
+                        .name(e.getName())
+                        .memberId(e.getMemberId())
                         .createdAt(e.getCreatedAt())
                         .updatedAt(e.getUpdatedAt())
                         .build())
@@ -50,7 +51,14 @@ public class BoardQueryService implements BoardQueryUsecase {
     }
 
     @Override
-    public BoardFindByIdResponseDto findById(Pageable pageable, String boardId) {
-        return null;
+    public BoardFindByIdResponseDto findById(Long boardId) {
+
+        Board borad = boardQueryRepository.findById(boardId)
+                .orElseThrow(BoardErrorCode.DEFAULT::defaultException);
+
+        return BoardFindByIdResponseDto.builder()
+                .title(borad.getTitle())
+                .content(borad.getContent())
+                .build();
     }
 }

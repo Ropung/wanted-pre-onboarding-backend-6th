@@ -26,6 +26,7 @@ public record BoardQueryDto() {
     @Builder
     public record BoardResponseDto(
             Long id,
+            Long memberId,
             String title,
             String content,
             String name,

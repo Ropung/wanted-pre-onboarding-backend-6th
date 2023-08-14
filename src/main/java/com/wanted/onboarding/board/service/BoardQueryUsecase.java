@@ -8,5 +8,5 @@ public interface BoardQueryUsecase {
 
     BoardFindAllResponseDto findAll(Pageable pageable);
 
-    BoardFindByIdResponseDto findById(Pageable pageable, String boardId);
+    BoardFindByIdResponseDto findById(Long boardId);
 }

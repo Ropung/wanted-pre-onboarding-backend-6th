@@ -11,7 +11,7 @@ public enum BoardErrorCode implements ErrorCode {
     UNAUTHORIZED("인증 유저 정보가 존재하지 않습니다.", HttpStatus.UNAUTHORIZED),
     FORBIDDEN("올바르지 않은 권한입니다.", HttpStatus.FORBIDDEN),
     INVALID_TOKENS("올바르지 않은 인증 정보입니다.", HttpStatus.BAD_REQUEST),
-    DEPRECATED("중복된 이메일 입니다.", HttpStatus.BAD_REQUEST),
+    DEPRECATED("중복된 게시글 제목이거나 내용이 비었습니다.", HttpStatus.BAD_REQUEST),
     SIGN_FAIL("아이디 혹은 비밀번호가 일치하지 않습니다.",HttpStatus.BAD_REQUEST);
 
 
