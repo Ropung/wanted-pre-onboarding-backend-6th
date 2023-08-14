@@ -6,13 +6,11 @@ import com.wanted.onboarding.board.api.dto.BoardCommandDto.BoardRemoveResponseDt
 import com.wanted.onboarding.board.api.dto.BoardCommandDto.BoardUpdateRequsetDto;
 import com.wanted.onboarding.board.api.dto.BoardCommandDto.BoardUpdateResponseDto;
 import com.wanted.onboarding.board.domain.Board;
-import com.wanted.onboarding.board.exxeption.BoardErrorCode;
+import com.wanted.onboarding.board.exception.BoardErrorCode;
 import com.wanted.onboarding.board.repository.BoardCommandRepository;
 import com.wanted.onboarding.member.domain.Member;
 import com.wanted.onboarding.member.exception.AuthenticationErrorCode;
 import com.wanted.onboarding.member.repository.MemberRepository;
-import com.wanted.onboarding.utill.jwt.JwtPayloadParser;
-import com.wanted.onboarding.utill.jwt.JwtPayloadParserBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,28 +21,22 @@ public class BoardCommandService implements BoardCommandUsecase {
 
     private final BoardCommandRepository boardCommandRepository;
     private final MemberRepository memberRepository;
-    private final JwtPayloadParserBuilder jwtPayloadParserBuilder;
 
     @Override
-    public BoardCreateResponseDto create(
-            BoardCreateRequsetDto dto,
-            JwtPayloadParser payloadParser
-    ) {
+    public BoardCreateResponseDto create(Long id, BoardCreateRequsetDto dto) {
 
         boolean isTitle = boardCommandRepository.existsBookByTitle(dto.title());
         if (isTitle) throw BoardErrorCode.DEPRECATED.defaultException();
         if (dto.content().isEmpty()) throw BoardErrorCode.DEPRECATED.defaultException();
 
-        // 유저 아이디 유효성 검사
-        String email = payloadParser.subject();
-        Member member = memberRepository.findByEmail(email)
+        Member member = memberRepository.findById(id)
                 .orElseThrow(AuthenticationErrorCode.MISMATCHED::defaultException);
 
         boardCommandRepository.save(
                 Board.builder()
                     .title(dto.title())
                     .content(dto.content())
-                    .memberId(member.getId())
+                    .memberId(id)
                     .name(member.getName())
                     .build()
         );
@@ -55,20 +47,14 @@ public class BoardCommandService implements BoardCommandUsecase {
     }
 
     @Override
-    public BoardUpdateResponseDto update(
-            BoardUpdateRequsetDto dto,
-            JwtPayloadParser payloadParser
-    ) {
+    public BoardUpdateResponseDto update(BoardUpdateRequsetDto dto) {
         return BoardUpdateResponseDto.builder()
                 .success(false)
                 .build();
     }
 
     @Override
-    public BoardRemoveResponseDto remove(
-            Long id,
-            JwtPayloadParser payloadParser
-    ) {
+    public BoardRemoveResponseDto remove(Long id) {
         return BoardRemoveResponseDto.builder()
                 .success(false)
                 .build();

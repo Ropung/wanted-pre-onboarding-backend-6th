@@ -1,74 +1,69 @@
 package com.wanted.onboarding.config;
 
-import com.wanted.onboarding.properties.jwt.JwtProperties;
-import com.wanted.onboarding.utill.jwt.JwtProvider;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
+import com.wanted.onboarding.utill.jwt.JwtAuthenticationFilter;
+import com.wanted.onboarding.utill.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import java.security.Key;
-import java.security.SecureRandom;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-	private final JwtProperties jwtProperties;
+	private final JwtTokenProvider jwtTokenProvider;
+	private final AuthenticationConfiguration authenticationConfiguration;
+
+	public static final String[] GET_PUBLIC =
+			new String[] {
+					"/api/board/**",
+			};
+
+	public static final String[] POST_PUBLIC =
+			new String[] {
+					"/api/signup",
+					"/api/login"
+			};
 
 	@Bean
 	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http
-				.csrf(AbstractHttpConfigurer::disable)
-				.sessionManagement((sessionManagement) ->
-						sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		return http.httpBasic()
+				.disable()
+				.csrf().disable()
+				.sessionManagement(
+						session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				)
-				.authorizeHttpRequests((authorizeRequests) ->
-						authorizeRequests.anyRequest().permitAll()
-				);
-		
-		return http.build();
+				.authorizeRequests(auth ->
+						auth
+								.antMatchers(HttpMethod.GET, GET_PUBLIC).permitAll()
+								.antMatchers(HttpMethod.POST, POST_PUBLIC).permitAll()
+								.antMatchers("/api/admin/**").hasRole("ADMIN")
+								.antMatchers("/api/user/**").hasRole("USER")
+								.anyRequest().authenticated())
+
+				.addFilterBefore(
+						new JwtAuthenticationFilter(jwtTokenProvider, this.authenticationManager()),
+						UsernamePasswordAuthenticationFilter.class)
+				.build();
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder(12);
 	}
-	
+
 	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+	public AuthenticationManager authenticationManager()
 			throws Exception {
 		return authenticationConfiguration.getAuthenticationManager();
-	}
-
-	@Bean
-	public SecureRandom secureRandom() {
-		// create with default algorithm
-		return new SecureRandom();
-	}
-
-
-
-	@Bean
-	public JwtParser jwtParser() {
-		// Parsing -> g
-		byte[] keyBytes = Decoders.BASE64.decode(jwtProperties.secret());
-		Key secretKey = Keys.hmacShaKeyFor(keyBytes);
-
-		return Jwts.parserBuilder()
-				.setSigningKey(secretKey)
-				.build();
 	}
 }

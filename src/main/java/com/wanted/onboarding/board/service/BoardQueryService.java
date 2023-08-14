@@ -4,7 +4,7 @@ import com.wanted.onboarding.board.api.dto.BoardQueryDto.BoardFindAllResponseDto
 import com.wanted.onboarding.board.api.dto.BoardQueryDto.BoardFindByIdResponseDto;
 import com.wanted.onboarding.board.api.dto.BoardQueryDto.BoardResponseDto;
 import com.wanted.onboarding.board.domain.Board;
-import com.wanted.onboarding.board.exxeption.BoardErrorCode;
+import com.wanted.onboarding.board.exception.BoardErrorCode;
 import com.wanted.onboarding.board.repository.BoardQueryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

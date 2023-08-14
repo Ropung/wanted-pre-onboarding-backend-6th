@@ -2,6 +2,9 @@ server:
   port: 8080
 
 spring:
+  config:
+    import:
+      - classpath:/app/jwt/jwt.yml
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3307/wanted

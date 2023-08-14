@@ -1,4 +1,4 @@
-package com.wanted.onboarding.board.exxeption;
+package com.wanted.onboarding.board.exception;
 
 import com.wanted.onboarding.support.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;

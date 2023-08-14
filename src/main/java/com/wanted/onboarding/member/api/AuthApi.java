@@ -28,8 +28,6 @@ public class AuthApi {
     public MemberSignUpResponseDto signUp(
             @RequestBody @Valid MemberSignUpRequestDto dto
     ){
-        log.info("dto >>>>>>>>>>>>>>>>>>>>>>{}",dto.toString());
-
         return memberRegisterUsecase.signup(dto);
     }
 

@@ -6,8 +6,10 @@ import com.wanted.onboarding.board.api.dto.BoardCommandDto.BoardCreateRequsetDto
 import com.wanted.onboarding.board.api.dto.BoardCommandDto.BoardRemoveResponseDto;
 import com.wanted.onboarding.board.api.dto.BoardCommandDto.BoardUpdateResponseDto;
 import com.wanted.onboarding.board.service.BoardCommandUsecase;
-import com.wanted.onboarding.utill.jwt.JwtPayloadParserBuilder;
+import com.wanted.onboarding.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,17 +27,14 @@ import javax.validation.Valid;
 public class BoardCommandApi {
 
     private final BoardCommandUsecase boardCommandUsecase;
-    private final JwtPayloadParserBuilder jwtPayloadParserBuilder;
 
-    @PostMapping("")
+//    @PreAuthorize("hasRole(CREATE)")
+    @PostMapping
     public BoardCreateResponseDto create(
-            @RequestBody @Valid BoardCreateRequsetDto dto,
-            HttpServletRequest request
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
+            @RequestBody @Valid BoardCreateRequsetDto dto
     ){
-        return boardCommandUsecase.create(
-                dto,
-                jwtPayloadParserBuilder.buildWith(request)
-        );
+        return boardCommandUsecase.create(customUserDetails.getId(), dto);
     }
 
     @PutMapping("/{id}")
@@ -43,11 +42,7 @@ public class BoardCommandApi {
             @PathVariable Long id,
             @RequestBody @Valid BoardCommandDto.BoardUpdateRequsetDto dto,
             HttpServletRequest request) {
-
-        return boardCommandUsecase.update(
-                dto,
-                jwtPayloadParserBuilder.buildWith(request)
-        );
+        return boardCommandUsecase.update(dto);
     }
 
     @DeleteMapping("/{id}")
@@ -55,10 +50,7 @@ public class BoardCommandApi {
             @PathVariable Long id,
             HttpServletRequest request
     ) {
-        return boardCommandUsecase.remove(
-                id,
-                jwtPayloadParserBuilder.buildWith(request)
-        );
+        return boardCommandUsecase.remove(id);
     }
 
 

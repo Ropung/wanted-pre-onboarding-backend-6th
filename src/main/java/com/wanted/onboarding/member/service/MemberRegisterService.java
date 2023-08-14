@@ -10,10 +10,9 @@ import com.wanted.onboarding.member.exception.AuthenticationErrorCode;
 import com.wanted.onboarding.member.exception.AuthenticationException;
 import com.wanted.onboarding.member.repository.MemberRepository;
 import com.wanted.onboarding.member.service.mapper.MemberDtoMapper;
-import com.wanted.onboarding.utill.jwt.JwtProvider;
+import com.wanted.onboarding.utill.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +23,7 @@ public class MemberRegisterService implements MemberRegisterUsecase {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final MemberDtoMapper mapper;
-    private final JwtProvider jwtProvider;
+    private final JwtTokenProvider jwtProvider;
     private final AuthenticationManager authenticationManager;
 
 
@@ -59,7 +58,7 @@ public class MemberRegisterService implements MemberRegisterUsecase {
             throw new AuthenticationException(AuthenticationErrorCode.SIGN_FAIL);
         }
 
-        String token = jwtProvider.generateAsUser(dto.email(),member.getName());
+        String token = jwtProvider.createToken(member.getId());
 
         return MemberLoginResponseDto.builder()
                 .token(token)

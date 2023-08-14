@@ -5,15 +5,12 @@ import com.wanted.onboarding.board.api.dto.BoardCommandDto.BoardCreateResponseDt
 import com.wanted.onboarding.board.api.dto.BoardCommandDto.BoardRemoveResponseDto;
 import com.wanted.onboarding.board.api.dto.BoardCommandDto.BoardUpdateRequsetDto;
 import com.wanted.onboarding.board.api.dto.BoardCommandDto.BoardUpdateResponseDto;
-import com.wanted.onboarding.utill.jwt.JwtPayloadParser;
-
-import javax.servlet.http.HttpServletRequest;
 
 public interface BoardCommandUsecase {
 
-    BoardCreateResponseDto create(BoardCreateRequsetDto dto, JwtPayloadParser payloadParser);
-    BoardUpdateResponseDto update(BoardUpdateRequsetDto dto, JwtPayloadParser payloadParser);
-    BoardRemoveResponseDto remove(Long id, JwtPayloadParser payloadParser);
+    BoardCreateResponseDto create(Long id, BoardCreateRequsetDto dto);
+    BoardUpdateResponseDto update(BoardUpdateRequsetDto dto);
+    BoardRemoveResponseDto remove(Long id);
 
 //    BoardCreateResponseDto create(BoardCreateRequsetDto dto, HttpServletRequest request);
 //    BoardUpdateResponseDto update(BoardUpdateRequsetDto dto, HttpServletRequest request);
