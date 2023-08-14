@@ -4,6 +4,7 @@ import com.wanted.onboarding.member.domain.Member;
 import com.wanted.onboarding.support.BaseEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,13 +23,15 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-
+@Builder
 public class Board extends BaseEntity {
 
+    private Long memberId;
+    private String name;
     private String title;
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member.id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private Member member;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "member.id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+//    private Member member;
 }
