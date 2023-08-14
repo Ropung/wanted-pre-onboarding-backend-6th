@@ -1,0 +1,72 @@
+env:
+  DB_PASSWORD: root
+
+name: build-test
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+
+      - name: set env
+        id: set-envs
+        run: |
+          if [ $GITHUB_REF_NAME = 'develop' ]; then
+            PROFILE=dev
+          else
+            PROFILE=prod
+          fi
+
+          API_ZIP=api-$PROFILE-$(date +'%Y%m%dT%H%M%S%Z')
+
+          echo "API_ZIP : $API_ZIP"
+          echo "PROFILE: $PROFILE"
+
+          echo "::set-output name=PROFILE::$(echo $PROFILE)"
+          echo "::set-output name=API_ZIP::$(echo $API_ZIP)"
+
+      - name: Set Up MySQL
+        run : |
+          sudo /etc/init.d/mysql start
+          mysql -e 'CREATE DATABASE wantedtest;' -uroot -proot
+
+      - name: Set Up JDK 17
+        uses: actions/setup-java@main
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: build with gradle
+        uses: gradle/gradle-build-action@main
+        with:
+          gradle-version: wrapper
+          arguments: zip --no-daemon -Dspring.profiles.active=${{ steps.set-envs.outputs.PROFILE }}
+
+      - name: Move ZIP
+        run: |
+          mv build/distributions/onboarding.zip build/distributions/${{ steps.set-envs.outputs.API_ZIP }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Api Deploy
+        run: |
+
+          aws s3 cp build/distributions/${{ steps.set-envs.outputs.API_ZIP }} s3://elasticbeanstalk-ap-northeast-2-755853635915
+
+          aws elasticbeanstalk create-application-version --application-name wanted-onboarding \
+              --version-label ${{ steps.set-envs.outputs.API_ZIP }} --source-bundle S3Bucket="elasticbeanstalk-ap-northeast-2-755853635915",S3Key="${{ steps.set-envs.outputs.API_ZIP }}" \
+              --region=ap-northeast-2
+
+          aws elasticbeanstalk update-environment --application-name wanted-onboarding \
+              --environment-name wanted-onboarding-env --version-label ${{ steps.set-envs.outputs.API_ZIP }}
+      
