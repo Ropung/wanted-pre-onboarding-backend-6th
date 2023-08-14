@@ -1,4 +1,4 @@
-  create table member (
+  create table wanted.member (
     id                      bigint               not null            auto_increment,
     email                   varchar(255),
     password                varchar(255),

@@ -10,7 +10,10 @@ import com.wanted.onboarding.member.exception.AuthenticationErrorCode;
 import com.wanted.onboarding.member.exception.AuthenticationException;
 import com.wanted.onboarding.member.repository.MemberRepository;
 import com.wanted.onboarding.member.service.mapper.MemberDtoMapper;
+import com.wanted.onboarding.utill.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,9 @@ public class MemberRegisterService implements MemberRegisterUsecase {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final MemberDtoMapper mapper;
+    private final JwtProvider jwtProvider;
+    private final AuthenticationManager authenticationManager;
+
 
     @Override
     public MemberSignUpResponseDto signup(MemberSignUpRequestDto dto) {
@@ -31,7 +37,12 @@ public class MemberRegisterService implements MemberRegisterUsecase {
         String digest = passwordEncoder.encode(dto.rawPassword());
         MemberStatus status = MemberStatus.ACTIVE;
 
-        Member member = mapper.from(dto.email(), digest, dto.name(), status);
+        Member member = mapper.from(
+                dto.email(),
+                digest,
+                dto.name(),
+                status
+        );
         memberRepository.save(member);
 
         return MemberSignUpResponseDto.builder()
@@ -40,8 +51,18 @@ public class MemberRegisterService implements MemberRegisterUsecase {
     }
     @Override
     public MemberLoginResponseDto login(MemberLoginRequestDto dto) {
+
+        Member member = memberRepository.findByEmail(dto.email())
+                .orElseThrow(AuthenticationErrorCode.SIGN_FAIL::defaultException);
+
+        if(!passwordEncoder.matches(dto.rawPassword(),member.getPassword())){
+            throw new AuthenticationException(AuthenticationErrorCode.SIGN_FAIL);
+        }
+
+        String token = jwtProvider.generateAsUser(dto.email(),member.getName());
+
         return MemberLoginResponseDto.builder()
-                .token(null)
+                .token(token)
                 .build();
     }
 

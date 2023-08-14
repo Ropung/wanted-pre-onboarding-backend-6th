@@ -1,17 +1,18 @@
-package com.wanted.onboarding.member.exception;
+package com.wanted.onboarding.board.exxeption;
 
+import com.wanted.onboarding.support.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import com.wanted.onboarding.support.exception.ErrorCode;
 @RequiredArgsConstructor
-public enum AuthenticationErrorCode implements ErrorCode {
+public enum BoardErrorCode implements ErrorCode {
+    PAGE_OUT_OF_RANGE("페이지 번호가 유효하지 않음.",HttpStatus.BAD_REQUEST),
+    DEFAULT("게시판 조회 오류", HttpStatus.INTERNAL_SERVER_ERROR),
     MISMATCHED("회원 정보가 일치하지 않습니다.", HttpStatus.NOT_FOUND),
     UNAUTHORIZED("인증 유저 정보가 존재하지 않습니다.", HttpStatus.UNAUTHORIZED),
     FORBIDDEN("올바르지 않은 권한입니다.", HttpStatus.FORBIDDEN),
     INVALID_TOKENS("올바르지 않은 인증 정보입니다.", HttpStatus.BAD_REQUEST),
     DEPRECATED("중복된 이메일 입니다.", HttpStatus.BAD_REQUEST),
-    SIGN_FAIL("아이디 혹은 비밀번호가 일치하지 않습니다.",HttpStatus.BAD_REQUEST),
-    DEFAULT("서버 문제로 인증을 수행하지 못했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+    SIGN_FAIL("아이디 혹은 비밀번호가 일치하지 않습니다.",HttpStatus.BAD_REQUEST);
 
 
     public final String message;
@@ -28,12 +29,12 @@ public enum AuthenticationErrorCode implements ErrorCode {
     }
 
     @Override
-    public AuthenticationException defaultException() {
-        return new AuthenticationException(this);
+    public BoardException defaultException() {
+        return new BoardException(this);
     }
 
     @Override
-    public AuthenticationException defaultException(Throwable cause) {
-        return new AuthenticationException(this, cause);
+    public BoardException defaultException(Throwable cause) {
+        return new BoardException(this, cause);
     }
 }
