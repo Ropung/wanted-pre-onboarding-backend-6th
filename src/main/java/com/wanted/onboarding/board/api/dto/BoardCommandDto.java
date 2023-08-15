@@ -18,8 +18,7 @@ public record BoardCommandDto() {
 
     public record BoardUpdateRequsetDto(
             String title,
-            String content,
-            @NotNull Long boardId
+            String content
     ){}
     @Builder
     public record BoardUpdateResponseDto(

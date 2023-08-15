@@ -13,6 +13,7 @@ import com.wanted.onboarding.member.exception.AuthenticationErrorCode;
 import com.wanted.onboarding.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import javax.transaction.Transactional;
 
 
 @Service
@@ -25,8 +26,9 @@ public class BoardCommandService implements BoardCommandUsecase {
     @Override
     public BoardCreateResponseDto create(Long id, BoardCreateRequsetDto dto) {
 
-        boolean isTitle = boardCommandRepository.existsBookByTitle(dto.title());
+        boolean isTitle = boardCommandRepository.existsBoardByTitle(dto.title());
         if (isTitle) throw BoardErrorCode.DEPRECATED.defaultException();
+        if (dto.title().isEmpty()) throw BoardErrorCode.DEPRECATED.defaultException();
         if (dto.content().isEmpty()) throw BoardErrorCode.DEPRECATED.defaultException();
 
         Member member = memberRepository.findById(id)
@@ -36,7 +38,7 @@ public class BoardCommandService implements BoardCommandUsecase {
                 Board.builder()
                     .title(dto.title())
                     .content(dto.content())
-                    .memberId(id)
+                    .memberId(member.getId())
                     .name(member.getName())
                     .build()
         );
@@ -47,16 +49,50 @@ public class BoardCommandService implements BoardCommandUsecase {
     }
 
     @Override
-    public BoardUpdateResponseDto update(BoardUpdateRequsetDto dto) {
+    @Transactional
+    public BoardUpdateResponseDto update(
+            Long memberId,
+            Long boardId,
+            BoardUpdateRequsetDto dto) {
+
+        boolean isTitle = boardCommandRepository.existsBoardByTitle(dto.title());
+        if (isTitle) throw BoardErrorCode.DEPRECATED.defaultException();
+        if (dto.title().isEmpty()) throw BoardErrorCode.DEPRECATED.defaultException();
+        if (dto.content().isEmpty()) throw BoardErrorCode.DEPRECATED.defaultException();
+
+        Board boardEntity = boardCommandRepository.findById(boardId)
+                .orElseThrow(BoardErrorCode.DEFAULT::defaultException);
+
+        if(boardEntity.getMemberId() != memberId)
+            throw BoardErrorCode.FORBIDDEN.defaultException();
+
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(AuthenticationErrorCode.UNAUTHORIZED::defaultException);
+
+        boardEntity.changeTitle(dto.title());
+        boardEntity.changeContent(dto.content());
+
         return BoardUpdateResponseDto.builder()
-                .success(false)
+                .success(true)
                 .build();
     }
 
     @Override
-    public BoardRemoveResponseDto remove(Long id) {
+//    @Transactional
+    public BoardRemoveResponseDto remove(
+            Long memberId,
+            Long boardId
+    ) {
+        Board board = boardCommandRepository.findById(boardId)
+                .orElseThrow(BoardErrorCode.DEFAULT::defaultException);
+
+        if(board.getMemberId() != memberId)
+            throw BoardErrorCode.FORBIDDEN.defaultException();
+
+        boardCommandRepository.delete(board);
+
         return BoardRemoveResponseDto.builder()
-                .success(false)
+                .success(true)
                 .build();
     }
 }
