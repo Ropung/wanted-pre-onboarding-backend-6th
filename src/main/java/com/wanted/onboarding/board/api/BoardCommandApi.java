@@ -1,6 +1,7 @@
 package com.wanted.onboarding.board.api;
 
 import com.wanted.onboarding.board.api.dto.BoardCommandDto;
+import com.wanted.onboarding.board.api.dto.BoardCommandDto.BoardUpdateRequsetDto;
 import com.wanted.onboarding.board.api.dto.BoardCommandDto.BoardCreateResponseDto;
 import com.wanted.onboarding.board.api.dto.BoardCommandDto.BoardCreateRequsetDto;
 import com.wanted.onboarding.board.api.dto.BoardCommandDto.BoardRemoveResponseDto;
@@ -37,20 +38,24 @@ public class BoardCommandApi {
         return boardCommandUsecase.create(customUserDetails.getId(), dto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{boardId}")
     public BoardUpdateResponseDto update(
-            @PathVariable Long id,
-            @RequestBody @Valid BoardCommandDto.BoardUpdateRequsetDto dto,
-            HttpServletRequest request) {
-        return boardCommandUsecase.update(dto);
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
+            @PathVariable Long boardId,
+            @RequestBody @Valid BoardUpdateRequsetDto dto
+    ) {
+        return boardCommandUsecase.update(
+                customUserDetails.getId(),
+                boardId,
+                dto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{boardId}")
     public BoardRemoveResponseDto delete(
-            @PathVariable Long id,
-            HttpServletRequest request
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
+            @PathVariable Long boardId
     ) {
-        return boardCommandUsecase.remove(id);
+        return boardCommandUsecase.remove(customUserDetails.getId(),boardId);
     }
 
 

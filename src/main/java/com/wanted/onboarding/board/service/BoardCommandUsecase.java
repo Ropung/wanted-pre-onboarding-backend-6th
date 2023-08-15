@@ -8,9 +8,9 @@ import com.wanted.onboarding.board.api.dto.BoardCommandDto.BoardUpdateResponseDt
 
 public interface BoardCommandUsecase {
 
-    BoardCreateResponseDto create(Long id, BoardCreateRequsetDto dto);
-    BoardUpdateResponseDto update(BoardUpdateRequsetDto dto);
-    BoardRemoveResponseDto remove(Long id);
+    BoardCreateResponseDto create(Long memberId, BoardCreateRequsetDto dto);
+    BoardUpdateResponseDto update(Long memberId, Long boardId, BoardUpdateRequsetDto dto);
+    BoardRemoveResponseDto remove(Long memberId, Long boardId);
 
 //    BoardCreateResponseDto create(BoardCreateRequsetDto dto, HttpServletRequest request);
 //    BoardUpdateResponseDto update(BoardUpdateRequsetDto dto, HttpServletRequest request);

@@ -21,8 +21,6 @@ import javax.persistence.ManyToOne;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@ToString
-@EqualsAndHashCode
 @Builder
 public class Board extends BaseEntity {
 
@@ -30,6 +28,14 @@ public class Board extends BaseEntity {
     private String name;
     private String title;
     private String content;
+
+    public void changeTitle(String title){
+        this.title = title;
+    }
+
+    public void changeContent(String content){
+        this.content = content;
+    }
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "member.id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
