@@ -10,27 +10,27 @@
 
 터미널<../wanted-pre-onboarding-backend>: 
     `docker-compose up -d`
-
+<br/>
 ## 3. 애플리케이션의 실행 방법
-### 3-1. docker 실행후 컨테이너 실행
+`3-1. docker 실행후 컨테이너 실행`
 
 ---
 ![img.png](img.png)
 <br/>
 
-### 3-2. 개발환경 ?  VMoption 로컬로 실행 : VM옵션 공백
+`3-2. 개발환경 ?  VMoption 로컬로 실행 : VM 옵션 공백`
 
 ---
 ![img_1.png](img_1.png)
 <br/>
 `-Dspring.profiles.active=local`추가
-
-### 3-3. 실행
+<br/>
+`3-3. 실행`
 
 ---
 `OnboardingApplication` run
-
-### 3-4. 엔드 포인트 호출 방법
+<br/>
+`3-4. 엔드 포인트 호출 방법`
 
 ---
 | description | method | url                    | permission |
@@ -44,7 +44,7 @@
 | 특정 게시글 삭제 | `DELETE` | /api/board/{"board_id"} | `IsAuthenticated` |
 
 `{"board_id"} = int:pk`
-
+<br/>
 
 ## 4. 데이터베이스 테이블 구조
 
