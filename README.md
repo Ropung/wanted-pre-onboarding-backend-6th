@@ -4,13 +4,16 @@
 
 - 노기훈
 - 563710@naver.com
+  
 <br/>
 
 ## 2. docker-compose 실행 방법 ++
 
 터미널<../wanted-pre-onboarding-backend>: 
     `docker-compose up -d`
+    
 <br/>
+
 ## 3. 애플리케이션의 실행 방법
 ### `3-1. docker 실행후 컨테이너 실행`
 
