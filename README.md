@@ -9,12 +9,12 @@
 
 ## 2. docker-compose 실행 방법 ++
 
-- 터미널 루트에서 docker-compose 올리기
+- 프로젝트 루트에서 docker-compose 올리기
   
 <br/>
-`</wanted-pre-onboarding-backend>`: 
-docker-compose up -d
-    
+
+"wanted-pre-onboarding-backend>": `docker-compose up -d`
+
 <br/>
 
 ## 3. 애플리케이션의 실행 방법
@@ -56,6 +56,7 @@ docker-compose up -d
 
 ---
 <br/>
+
 ## 4. 데이터베이스 테이블 구조
 
 ```mermaid
@@ -85,6 +86,7 @@ erDiagram
 
 ---
 <br/>
+
 ## 5.구현한 API의 동작을 촬영한 데모 영상 링크
 
 `Link`: 
@@ -148,6 +150,7 @@ erDiagram
   -   - 작성자와 일치하지 않으면 예외처리 합니다.
 
 <br/>
+
 ## 7.  API 명세(request/response 포함)
 
 
@@ -459,7 +462,7 @@ erDiagram
 ## 8. Architecture(AWS 환경)
 
 
-
+<br/>
 
 ### `요구사항`
 https://github.com/lordmyshepherd-edu/wanted-pre-onboardung-backend-selection-assignment
