@@ -828,10 +828,45 @@ https://youtu.be/Iio1V89R2pQ
 
 ---
 
-## 7. Architecture(AWS 환경)
 
 
-<br/>
+
+## 7. 단위 테스트 코드
+
+- 몇몇 테스트만 진행 (기간 내 미완성)
+
+![image](https://github.com/Ropung/wanted-pre-onboarding-backend/assets/85475762/80b1bc0a-227b-4325-a4dd-f6deb9fe5684)
+
+![image](https://github.com/Ropung/wanted-pre-onboarding-backend/assets/85475762/a4f389db-6ff9-422e-9c18-d21429120144)
+
+`시도한 영역`:
+Memeber
+- domain, api, Repository, Service
+
+
+
+## 8. Architecture 설계 (AWS 환경)
+
+`API 주소`: 
+
+`설계한 AWS 환경 그림`: 기간 내 미완성
+
+`시도한 영역`: CI/CD
+
+CI: `GIT ACTION`
+
+![image](https://github.com/Ropung/wanted-pre-onboarding-backend/assets/85475762/e92b70f7-c7d8-4b3c-8a65-a8a229b1a2c1)
+
+
+
+![image](https://github.com/Ropung/wanted-pre-onboarding-backend/assets/85475762/5bc88318-1521-49e0-bb09-3eb15eb9e7d1)
+
+![image](https://github.com/Ropung/wanted-pre-onboarding-backend/assets/85475762/0c1b62f5-f689-409d-82b9-1e1896d5bfd5)
+
+![image](https://github.com/Ropung/wanted-pre-onboarding-backend/assets/85475762/8bb5d302-83d9-43bf-95cc-abe4d39ec606)
+
+
+
 
 
 
