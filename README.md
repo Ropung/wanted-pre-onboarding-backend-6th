@@ -84,9 +84,10 @@ erDiagram
 ```
 
 <br/>
+
 ## 4.구현한 API의 동작을 촬영한 데모 영상 링크
 
-
+https://youtu.be/f_VAdykTCm4
 
 ## 5. 구현 방법 및 이유에 대한 간략한 설명
 
