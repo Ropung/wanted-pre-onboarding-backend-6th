@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${db.url:jdbc:mysql://localhost:3306/test}
-    username: ${db.username:1234}
-    password: ${db.password:1234}
+    url: ${db.url:jdbc:mysql://localhost:3307/wantedtest}
+    username: ${db.username:root}
+    password: ${db.password:root}
 
   jpa:
     properties:
@@ -12,9 +12,9 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create-drop
   flyway:
-    enabled: true
+    enabled: false
 
 app:
   jwt:
