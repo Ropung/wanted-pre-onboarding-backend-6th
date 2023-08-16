@@ -10,8 +10,10 @@
 
 터미널<../wanted-pre-onboarding-backend>: 
     `docker-compose up -d`
+    <br/>
 
 ## 3. 애플리케이션의 실행 방법
+<br/>
 ### 3-1. docker 실행후 컨테이너 실행
 
 ---
@@ -24,6 +26,7 @@
 ![img_1.png](img_1.png)
 <br/>
 `-Dspring.profiles.active=local`추가
+<br/>
 
 ### 3-3. 실행
 
@@ -31,7 +34,6 @@
 `OnboardingApplication` run
 
 ### 3-4. 엔드 포인트 호출 방법
-
 ---
 | description | method | url                    | permission |
 | ---- | ---- |------------------------| ----|
@@ -44,7 +46,7 @@
 | 특정 게시글 삭제 | `DELETE` | /api/board/{"board_id"} | `IsAuthenticated` |
 
 `{"board_id"} = int:pk`
-
+<br/>
 
 ## 4. 데이터베이스 테이블 구조
 
@@ -72,12 +74,13 @@ erDiagram
         update_dt datetime(6) "DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP"
     }
 ```
+
+<br/>
 ## 5.구현한 API의 동작을 촬영한 데모 영상 링크
 
 
 
 ## 6. 구현 방법 및 이유에 대한 간략한 설명
-
 
 ### `6-1. member`
 
@@ -133,6 +136,7 @@ erDiagram
 - 엑세스토큰을 시큐리티에서 검증하여 검증된 객체(사용자)가 게시물의 작성자와 일치하면 게시글 삭제가 가능합니다.
   -   - 작성자와 일치하지 않으면 예외처리 합니다.
 
+<br/>
 
 ## 7.  API 명세(request/response 포함)
 
@@ -444,6 +448,8 @@ erDiagram
 
 ## 8. Architecture(AWS 환경)
 
+
+<br/>
 
 
 
