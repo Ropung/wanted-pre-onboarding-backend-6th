@@ -9,14 +9,12 @@
 
 ## 2. 애플리케이션의 실행 방법
 
-<br/>
-
 ### 2-1 저장소 클론 (프로젝트 가져오기)
 ```
 git@github.com:Ropung/wanted-pre-onboarding-backend.git
 ```
 
-### 2-2. docker 실행후 컨테이너 실행확인 (+ docker-compose 실행 방법_
+### 2-2. docker 실행후 컨테이너 실행확인 (+ docker-compose 실행 방법)
 프로젝트 루트에서 아래 명령어 `docker-compose up -d` 실행
 
 ```terminel
@@ -31,16 +29,15 @@ git@github.com:Ropung/wanted-pre-onboarding-backend.git
 
 ![img_1.png](img_1.png)
 
-<br/>
-
 `-Dspring.profiles.active=local`추가
 
 <br/>
 
 ### 2-4. 실행
 
----
 `OnboardingApplication` run
+
+<br/>
 
 
 ### 2-5. 엔드 포인트 호출 방법
@@ -56,6 +53,7 @@ git@github.com:Ropung/wanted-pre-onboarding-backend.git
 | 특정 게시글 삭제 | `DELETE` | /api/board/{"board_id"} | `IsAuthenticated` |
 
 `{"board_id"} = int:pk`
+
 <br/>
 
 ## 3. 데이터베이스 테이블 구조
@@ -76,7 +74,7 @@ erDiagram
 
     TB_BOARD {
         board_idx BIGINT(10) PK "AUTO_INCREMENT"
-        member_idx BIGINT(10) PK "AUTO_INCREMENT"
+        member_idx BIGINT(10) UK ""
         member_name VARCHAR(255) ""
         board_title VARCHAR(255) ""
         board_content VARCHAR(255) ""
