@@ -9,6 +9,8 @@
 
 ## 2. 애플리케이션의 실행 방법
 
+영상: `아래 5번 데모영상에 실행방법이 포함이 되어있습니다.`
+
 ### 2-1 저장소 클론 (프로젝트 가져오기)
 ```
 git@github.com:Ropung/wanted-pre-onboarding-backend.git
