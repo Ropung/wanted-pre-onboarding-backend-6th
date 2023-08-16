@@ -53,12 +53,17 @@ public class BoardQueryService implements BoardQueryUsecase {
     @Override
     public BoardFindByIdResponseDto findById(Long boardId) {
 
-        Board borad = boardQueryRepository.findById(boardId)
+        Board board = boardQueryRepository.findById(boardId)
                 .orElseThrow(BoardErrorCode.DEFAULT::defaultException);
 
         return BoardFindByIdResponseDto.builder()
-                .title(borad.getTitle())
-                .content(borad.getContent())
+                .boardId(board.getId())
+                .MemberId(board.getMemberId())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .name(board.getName())
+                .createdAt(board.getCreatedAt())
+                .updatedAt(board.getUpdatedAt())
                 .build();
     }
 }
