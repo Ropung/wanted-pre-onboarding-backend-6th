@@ -6,34 +6,44 @@
 - 563710@naver.com
 <br/>
 
-## 2. docker-compose 실행 방법 ++
 
-터미널<../wanted-pre-onboarding-backend>: 
-    `docker-compose up -d`
-    <br/>
+## 2. 애플리케이션의 실행 방법
 
-## 3. 애플리케이션의 실행 방법
 <br/>
-### 3-1. docker 실행후 컨테이너 실행
 
----
+### 2-1 저장소 클론 (프로젝트 가져오기)
+```
+git@github.com:Ropung/wanted-pre-onboarding-backend.git
+```
+
+### 2-2. docker 실행후 컨테이너 실행확인 (+ docker-compose 실행 방법_
+프로젝트 루트에서 아래 명령어 `docker-compose up -d` 실행
+
+```terminel
+<../wanted-pre-onboarding-backend>: docker-compose up -d
+```
+
 ![img.png](img.png)
+
 <br/>
 
-### 3-2. 개발환경 ?  VMoption 로컬로 실행 : VM옵션 공백
+### 2-3. 개발환경 일때는  VMoption 로컬로 실행
 
----
 ![img_1.png](img_1.png)
-<br/>
-`-Dspring.profiles.active=local`추가
+
 <br/>
 
-### 3-3. 실행
+`-Dspring.profiles.active=local`추가
+
+<br/>
+
+### 2-4. 실행
 
 ---
 `OnboardingApplication` run
 
-### 3-4. 엔드 포인트 호출 방법
+
+### 2-5. 엔드 포인트 호출 방법
 ---
 | description | method | url                    | permission |
 | ---- | ---- |------------------------| ----|
@@ -48,7 +58,7 @@
 `{"board_id"} = int:pk`
 <br/>
 
-## 4. 데이터베이스 테이블 구조
+## 3. 데이터베이스 테이블 구조
 
 ```mermaid
 erDiagram
@@ -76,13 +86,13 @@ erDiagram
 ```
 
 <br/>
-## 5.구현한 API의 동작을 촬영한 데모 영상 링크
+## 4.구현한 API의 동작을 촬영한 데모 영상 링크
 
 
 
-## 6. 구현 방법 및 이유에 대한 간략한 설명
+## 5. 구현 방법 및 이유에 대한 간략한 설명
 
-### `6-1. member`
+### `5-1. member`
 
 ---
 회원가입(`SignUp`)
@@ -103,7 +113,7 @@ erDiagram
   - 중복된 아이디거나 비밀번호를 passwordEncoder.matches()를 사용하여 일치하지 않는 경우 예외처리 됩니다.
 - 시큐리티 인증에 성공하면, JWT를 생성하여 access token을 반환해 줍니다.
 
-### `6-2. board`
+### `5-2. board`
 
 ---
 
@@ -138,9 +148,7 @@ erDiagram
 
 <br/>
 
-## 7.  API 명세(request/response 포함)
-
-
+## 6.  API 명세(request/response 포함)
 
 <details>
 <summary> Postman.json </summary>
@@ -816,7 +824,7 @@ erDiagram
 
 ---
 
-## 8. Architecture(AWS 환경)
+## 7. Architecture(AWS 환경)
 
 
 <br/>
