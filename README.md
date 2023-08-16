@@ -9,10 +9,11 @@
 
 ## 2. docker-compose 실행 방법 ++
 
-터미널 루트에서 docker-compose 올리기
+- 터미널 루트에서 docker-compose 올리기
+  
 <br/>
-</wanted-pre-onboarding-backend>: 
-    `docker-compose up -d`
+`</wanted-pre-onboarding-backend>`: 
+  **docker-compose up -d**
     
 <br/>
 
