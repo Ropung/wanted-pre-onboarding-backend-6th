@@ -845,11 +845,11 @@ Memeber
 
 
 
-## 8. Architecture 설계 (AWS 환경)
+## 8. Architecture 설계 (AWS 환경) - 주의: 배포 환경일떄: VM Option local이면 삭제
 
 `API 주소`:  wanted-onboarding-env.eba-v8ny4f23.ap-northeast-2.elasticbeanstalk.com 
 
-- 주의!! `배포 환경일떄`: VM Option 비워주세요!
+
 
 `설계한 AWS 환경 그림`: 기간 내 미완성
 
