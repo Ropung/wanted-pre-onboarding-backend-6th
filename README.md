@@ -13,7 +13,7 @@
   
 <br/>
 `</wanted-pre-onboarding-backend>`: 
-  **docker-compose up -d**
+docker-compose up -d
     
 <br/>
 
