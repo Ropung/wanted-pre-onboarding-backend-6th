@@ -23,9 +23,12 @@ git@github.com:Ropung/wanted-pre-onboarding-backend.git
 <../wanted-pre-onboarding-backend>: docker-compose up -d
 ```
 
+
 ![img.png](img.png)
 
+
 <br/>
+
 
 ### 2-3. 개발환경 일때는  VMoption 로컬로 실행
 
