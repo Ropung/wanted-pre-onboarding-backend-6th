@@ -2,14 +2,12 @@
 
 ## 1. 지원자의 성명
 
----
 - 노기훈
 - 563710@naver.com
 <br/>
 
 ## 2. docker-compose 실행 방법 ++
 
----
 터미널<../wanted-pre-onboarding-backend>: 
     `docker-compose up -d`
 
@@ -50,8 +48,6 @@
 
 ## 4. 데이터베이스 테이블 구조
 
----
-
 ```mermaid
 erDiagram
     TB_MEMBER ||--o{ TB_BOARD: MEMBER-POST
@@ -78,13 +74,10 @@ erDiagram
 ```
 ## 5.구현한 API의 동작을 촬영한 데모 영상 링크
 
----
-
 
 
 ## 6. 구현 방법 및 이유에 대한 간략한 설명
 
----
 
 ### `6-1. member`
 
@@ -143,7 +136,6 @@ erDiagram
 
 ## 7.  API 명세(request/response 포함)
 
----
 
 `Postman.json`:
 [Wanted Project Api.postman_collection.json](..%2F..%2F..%2FWanted%20Project%20Api.postman_collection.json)
@@ -450,10 +442,8 @@ erDiagram
 
 ---
 
-## 7. Architecture
+## 8. Architecture(AWS 환경)
 
-
----
 
 
 
