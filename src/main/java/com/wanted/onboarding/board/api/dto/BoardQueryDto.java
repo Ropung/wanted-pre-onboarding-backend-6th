@@ -13,8 +13,13 @@ public record BoardQueryDto() {
 
     @Builder
     public record BoardFindByIdResponseDto(
+            Long boardId,
+            Long MemberId,
             String title,
-            String content
+            String content,
+            String name,
+             Instant createdAt,
+             Instant updatedAt
     ){}
 
     @Builder
