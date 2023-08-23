@@ -4,7 +4,9 @@
 
 - 노기훈
 - 563710@naver.com
+  
 <br/>
+
 
 
 ## 2. 애플리케이션의 실행 방법
@@ -24,6 +26,7 @@ git@github.com:Ropung/wanted-pre-onboarding-backend.git
 ```
 
 
+
 ![img.png](img.png)
 
 
@@ -36,6 +39,7 @@ git@github.com:Ropung/wanted-pre-onboarding-backend.git
 
 `-Dspring.profiles.active=local`추가
 
+
 <br/>
 
 ### 2-4. 실행
@@ -47,6 +51,8 @@ git@github.com:Ropung/wanted-pre-onboarding-backend.git
 
 ### 2-5. 엔드 포인트 호출 방법
 ---
+
+
 | description | method | url                    | permission |
 | ---- | ---- |------------------------| ----|
 | 회원가입 | `POST` | /api/signup            | `AllowAny` |
@@ -58,6 +64,9 @@ git@github.com:Ropung/wanted-pre-onboarding-backend.git
 | 특정 게시글 삭제 | `DELETE` | /api/board/{"board_id"} | `IsAuthenticated` |
 
 `{"board_id"} = int:pk`
+
+
+---
 
 <br/>
 
@@ -88,6 +97,7 @@ erDiagram
     }
 ```
 
+
 <br/>
 
 ## 4.구현한 API의 동작을 촬영한 데모 영상 링크
@@ -98,7 +108,8 @@ https://youtu.be/Iio1V89R2pQ
 
 ### `5-1. member`
 
----
+
+`6-1. member`
 회원가입(`SignUp`)
 - 클라이언트에서 이메일과 비밀번호를 입력받아 유효성을 검증합니다.
   - 이메일은 '@'를 포함해야 합니다.
@@ -119,7 +130,6 @@ https://youtu.be/Iio1V89R2pQ
 
 ### `5-2. board`
 
----
 
 게시글 목록 조회(`Board-List`)
 - 한 페이지에 게시글 `5`개를 조회합니다.
@@ -870,7 +880,7 @@ CI: `GIT ACTION`
 
 
 
-
+<br/>
 
 ### `요구사항`
 https://github.com/lordmyshepherd-edu/wanted-pre-onboardung-backend-selection-assignment
