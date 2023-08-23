@@ -7,40 +7,51 @@
   
 <br/>
 
-## 2. docker-compose 실행 방법 ++
 
-- 프로젝트 루트에서 docker-compose 올리기
-  
-<br/>
 
-"wanted-pre-onboarding-backend>": `docker-compose up -d`
+## 2. 애플리케이션의 실행 방법
 
-<br/>
+영상: `아래 5번 데모영상에 실행방법이 포함이 되어있습니다.`
 
-## 3. 애플리케이션의 실행 방법
-### 3-1. docker 실행후 컨테이너 실행
+### 2-1 저장소 클론 (프로젝트 가져오기)
+```
+git@github.com:Ropung/wanted-pre-onboarding-backend.git
+```
+
+### 2-2. docker 실행후 컨테이너 실행확인 (+ docker-compose 실행 방법)
+프로젝트 루트에서 아래 명령어 `docker-compose up -d` 실행
+
+```terminel
+<../wanted-pre-onboarding-backend>: docker-compose up -d
+```
+
+
 
 ![img.png](img.png)
 
----
+
 <br/>
 
-### 3-2. 개발환경 ?  VMoption 로컬로 실행 : VM 옵션 공백
+
+### 2-3. 개발환경 일때는  VMoption 로컬로 실행
 
 ![img_1.png](img_1.png)
-<br/>
+
 `-Dspring.profiles.active=local`추가
 
----
+
 <br/>
-### 3-3. 어플리케이션 실행
+
+### 2-4. 실행
 
 `OnboardingApplication` run
 
----
 <br/>
 
-### 3-4. 엔드 포인트 호출 방법
+
+### 2-5. 엔드 포인트 호출 방법
+---
+
 
 | description | method | url                    | permission |
 | ---- | ---- |------------------------| ----|
@@ -54,10 +65,12 @@
 
 `{"board_id"} = int:pk`
 
+
 ---
+
 <br/>
 
-## 4. 데이터베이스 테이블 구조
+## 3. 데이터베이스 테이블 구조
 
 ```mermaid
 erDiagram
@@ -75,7 +88,7 @@ erDiagram
 
     TB_BOARD {
         board_idx BIGINT(10) PK "AUTO_INCREMENT"
-        member_idx BIGINT(10) PK "AUTO_INCREMENT"
+        member_idx BIGINT(10) UK ""
         member_name VARCHAR(255) ""
         board_title VARCHAR(255) ""
         board_content VARCHAR(255) ""
@@ -84,18 +97,16 @@ erDiagram
     }
 ```
 
----
+
 <br/>
 
-## 5.구현한 API의 동작을 촬영한 데모 영상 링크
+## 4.구현한 API의 동작을 촬영한 데모 영상 링크
 
-`Link`: 
+https://youtu.be/Iio1V89R2pQ
 
----
-<br/>
+## 5. 구현 방법 및 이유에 대한 간략한 설명
 
-
-## 6. 구현 방법 및 이유에 대한 간략한 설명
+### `5-1. member`
 
 
 `6-1. member`
@@ -117,7 +128,7 @@ erDiagram
   - 중복된 아이디거나 비밀번호를 passwordEncoder.matches()를 사용하여 일치하지 않는 경우 예외처리 됩니다.
 - 시큐리티 인증에 성공하면, JWT를 생성하여 access token을 반환해 줍니다.
 
-### `6-2. board`
+### `5-2. board`
 
 
 게시글 목록 조회(`Board-List`)
@@ -151,13 +162,381 @@ erDiagram
 
 <br/>
 
-## 7.  API 명세(request/response 포함)
+## 6.  API 명세(request/response 포함)
 
+<details>
+<summary> Postman.json </summary>
 
-`Postman.json`:
-[Wanted Project Api.postman_collection.json](..%2F..%2F..%2FWanted%20Project%20Api.postman_collection.json)
+```json
+{
+	"info": {
+		"_postman_id": "8ce0dd9b-c78d-4e49-9f56-d9f52ca27a8f",
+		"name": "Wanted Project Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19882406"
+	},
+	"item": [
+		{
+			"name": "Member: SignUp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"wanted@naver.com\",\r\n    \"password\":\"12345678\",\r\n    \"name\":\"노기훈\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Member: Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"5@naver.com\",\r\n    \"password\":\"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Board: List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/board/list?page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"board",
+						"list"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Board: FindById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/board/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"board",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Board: Create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"1번제목\",\r\n    \"content\":\"1번 내용\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/board",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"board"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Board: Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"1번 제목수정\",\r\n    \"content\":\"1번 내용수정\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/board/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"board",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Board: Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/board/12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"board",
+						"12"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
+```
 
-
+</details>
 
 ### `Member`
 
@@ -459,7 +838,46 @@ erDiagram
 
 ---
 
-## 8. Architecture(AWS 환경)
+
+
+
+## 7. 단위 테스트 코드
+
+- 몇몇 테스트만 진행 (기간 내 미완성)
+
+![image](https://github.com/Ropung/wanted-pre-onboarding-backend/assets/85475762/80b1bc0a-227b-4325-a4dd-f6deb9fe5684)
+
+![image](https://github.com/Ropung/wanted-pre-onboarding-backend/assets/85475762/a4f389db-6ff9-422e-9c18-d21429120144)
+
+`시도한 영역`:
+Memeber
+- domain, api, Repository, Service
+
+
+
+## 8. Architecture 설계 (AWS 환경) - 주의: 배포 환경일떄: VM Option local이면 삭제
+
+`API 주소`:  wanted-onboarding-env.eba-v8ny4f23.ap-northeast-2.elasticbeanstalk.com 
+
+
+
+`설계한 AWS 환경 그림`: 기간 내 미완성
+
+`시도한 영역`: CI/CD
+
+CI: `GIT ACTION`
+
+![image](https://github.com/Ropung/wanted-pre-onboarding-backend/assets/85475762/e92b70f7-c7d8-4b3c-8a65-a8a229b1a2c1)
+
+
+
+![image](https://github.com/Ropung/wanted-pre-onboarding-backend/assets/85475762/5bc88318-1521-49e0-bb09-3eb15eb9e7d1)
+
+![image](https://github.com/Ropung/wanted-pre-onboarding-backend/assets/85475762/0c1b62f5-f689-409d-82b9-1e1896d5bfd5)
+
+![image](https://github.com/Ropung/wanted-pre-onboarding-backend/assets/85475762/8bb5d302-83d9-43bf-95cc-abe4d39ec606)
+
+
 
 
 <br/>
